@@ -1,3 +1,5 @@
+package dat255;
+
 import java.io.IOException;
 import java.util.Random;
 

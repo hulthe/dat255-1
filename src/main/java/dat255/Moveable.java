@@ -1,3 +1,5 @@
+package dat255;
+
 /**
  * This interface is supposed create basic methods to get data from the MOPED using the CarAPI.
  * @author Hamza Kadric
