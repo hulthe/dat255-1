@@ -1,4 +1,4 @@
-package dat255;
+package jcan;
 
 public class ALC {
 

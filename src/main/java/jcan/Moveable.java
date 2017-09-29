@@ -1,4 +1,4 @@
-package dat255;
+package jcan;
 
 /**
  * This interface is supposed create basic methods to get data from the MOPED using the CarAPI.
