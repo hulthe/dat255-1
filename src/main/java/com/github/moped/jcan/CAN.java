@@ -91,7 +91,7 @@ public final class CAN {
    * @throws InterruptedException fromSendCANFrame
    */
   public void sendMotorAndSteerValue(byte motor, byte steer)
-      throws IOException, InterruptedException {
+      throws InterruptedException {
     byte[] motorAndSteerBytes = new byte[2];
     motorAndSteerBytes[0] = motor;
     motorAndSteerBytes[1] = steer;
@@ -112,7 +112,7 @@ public final class CAN {
    * @throws IOException from sendMotorAndSteerValue
    * @throws InterruptedException from sendMotorAndSteerValue
    */
-  public void sendMotorValue(byte motor) throws IOException, InterruptedException {
+  public void sendMotorValue(byte motor) throws InterruptedException {
     sendMotorAndSteerValue(motor, steerValue);
   }
 
@@ -124,7 +124,7 @@ public final class CAN {
    * @throws IOException from sendMotorAndSteerValue
    * @throws InterruptedException from sendMotorAndSteerValue
    */
-  public void sendSteerValue(byte steer) throws IOException, InterruptedException {
+  public void sendSteerValue(byte steer) throws InterruptedException {
     sendMotorAndSteerValue(motorValue, steer);
   }
 
