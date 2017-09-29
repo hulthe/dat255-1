@@ -1,4 +1,29 @@
-﻿## How to setup a local virtual CAN interface
+﻿## How to import this library using maven
+
+In your `pom.xml`, add the following:
+```xml
+<repositories>
+	...
+	<repository>
+		<id>jitpack.io</id>
+		<url>https://jitpack.io</url>
+	</repository>
+	...
+</repositories>
+```
+```xml
+<dependencies>
+	...
+	<dependency>
+		<groupId>com.github.hulthe</groupId>
+		<artifactId>moped-canlib</artifactId>
+		<version>INSERT RELEASE TAG HERE</version>
+	</dependency>
+	...
+</dependencies>
+```
+
+## How to setup a local virtual CAN interface
 
 make install will install to system and require root permissions.
 Only tested on linux will not work on windows but might work on mac
