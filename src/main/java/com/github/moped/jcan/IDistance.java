@@ -1,3 +1,5 @@
+package com.github.moped.jcan;
+
 /**
  * @author Hamza Kadric
  * @author Timmy Truong

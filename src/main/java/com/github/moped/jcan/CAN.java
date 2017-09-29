@@ -1,4 +1,4 @@
-package jcan;
+package com.github.moped.jcan;
 
 import java.io.BufferedReader;
 import java.io.IOException;

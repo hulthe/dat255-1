@@ -1,4 +1,4 @@
-package jcan;
+package com.github.moped.jcan;
 
 /**
  * This interface is supposed create basic methods to get data from the MOPED using the CarAPI.
