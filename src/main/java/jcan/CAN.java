@@ -10,6 +10,8 @@ import java.util.concurrent.Semaphore;
 /**
  * @author Erik Källberg (kalerik@student.chalmers.se)
  * @author Hugo Frost
+ * @author Joakim Hulthe
+ * @author William Levén
  */
 
 
@@ -19,11 +21,9 @@ import java.util.concurrent.Semaphore;
  */
 public final class CAN {
 
-  private static CAN instance;
-
-  private static String CAN_INTERFACE = "vcan0";
   private static String DUMP_COMMAND = "candump";
   private static String SEND_COMMAND = "cansend";
+  private final String canInterface;
 
   private static String VCU_COMMAND_CAN_ID = "101";
   private static String VCU_ODOMETER_CAN_ID = "Not known at this time";
@@ -44,30 +44,16 @@ public final class CAN {
   /**
    * CAN singleton constructor starts CAN input and output worker threads
    *
+   * @param canInterface The name of the CAN interface (e.g. "can0")
    * @throws IOException when raised by either input or output worker constructors
    */
-  private CAN() throws IOException {
-    String[] argv = new String[2];
-    argv[0] = DUMP_COMMAND;
-    argv[1] = CAN_INTERFACE;
+  public CAN(String canInterface) throws IOException {
+    this.canInterface = canInterface;
     outputWorker = new OutputWorker(VCU_COOL_DOWN);
     outputWorkerThread = new Thread(outputWorker);
     inputWorkerThread = new Thread(new InputWorker());
     inputWorkerThread.start();
     outputWorkerThread.start();
-  }
-
-  /**
-   * Initiates an instance if one does not exist
-   *
-   * @return the one and only instance
-   * @throws IOException when raised by Runtime::exec
-   */
-  public static CAN getInstance() throws IOException {
-    if (instance == null) {
-      instance = new CAN();
-    }
-    return instance;
   }
 
   /**
@@ -190,7 +176,7 @@ public final class CAN {
 
       String[] argv = new String[2];
       argv[0] = CAN.DUMP_COMMAND;
-      argv[1] = CAN.CAN_INTERFACE;
+      argv[1] = canInterface;
 
       canDumpProcess = Runtime.getRuntime().exec(argv);
       canDumpStandardOutput = canDumpProcess.getInputStream();
@@ -302,7 +288,7 @@ public final class CAN {
     private void sendFrame(CANFrame frame) throws InterruptedException, IOException {
       String[] argv = new String[3];
       argv[0] = SEND_COMMAND;
-      argv[1] = CAN_INTERFACE;
+      argv[1] = canInterface;
       argv[2] = String.format("%s#%s", frame.identity, byteToHexString(frame.data));
       Process csProcess = Runtime.getRuntime().exec(argv);
       csProcess.waitFor();
