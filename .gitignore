@@ -1,5 +1,8 @@
 # Created by https://www.gitignore.io/api/bluej,eclipse,emacs,intellij+iml,java,jetbrains,linux,macos,notepadpp,sublimetext,vim,windows
 
+### Maven ###
+/target/
+
 ### bluej ###
 # BlueJ: A Java IDE for programming beginners. http://bluej.org
 
