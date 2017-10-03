@@ -31,7 +31,7 @@ public final class CAN {
   private static byte motorValue = 0;
   private static byte steerValue = 0;
 
-  private static long VCU_COOL_DOWN = 1000; //TODO find out how fast one can switch command
+  private static long VCU_COOL_DOWN = 1; //TODO find out how fast one can switch command
 
   private Thread outputWorkerThread;
   private Thread inputWorkerThread;
