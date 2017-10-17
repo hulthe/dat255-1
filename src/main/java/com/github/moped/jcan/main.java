@@ -22,7 +22,7 @@ public final class CAN {
   private final String canInterface;
 
   private static String VCU_COMMAND_CAN_ID = "101";
-  private static String VCU_ODOMETER_CAN_ID = "464";
+  private static String VCU_ODOMETER_CAN_ID = "Not known at this time";
   private static String SCU_ULTRASONIC_CAN_ID = "46C";
   private static byte motorValue = 0;
   private static byte steerValue = 0;
@@ -157,15 +157,28 @@ public final class CAN {
    *
    * @return sensor readings
    */
-  public int readSensor() throws InterruptedException {
-	  String sensorLine = inputWorker.readSensorLine();
-	  if (sensorLine == null || sensorLine.split(" ").length < 2) {
-		  return 0;
-	  } else {
-		  sensorLine = sensorLine.split(" ")[1];
-		  sensorLine = sensorLine.trim();
-		  return Integer.parseInt(sensorLine);
-	  }
+  public Short readSensor() throws InterruptedException {
+    String sensorLine = inputWorker.readSensorLine();
+    if (sensorLine == null) {
+      return null;
+    } else {
+      try {
+        sensorLine = sensorLine.split("\\[")[1];
+      } catch (ArrayIndexOutOfBoundsException e) {
+        return null;
+      }
+      sensorLine = sensorLine.trim();
+      sensorLine = sensorLine.split("]")[0];
+
+
+      try {
+        return Short.parseShort(sensorLine);
+      } catch (NumberFormatException e) {
+        System.out.println("Bad sensor data");
+      }
+
+      return null;
+    }
   }
 
   /**
