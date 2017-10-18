@@ -168,6 +168,14 @@ public final class CAN {
 	  }
   }
 
+  public int getOutputQueueSize() {
+    return outputWorker.getQueueSize();
+  }
+
+  public void clearOutputQueue() throws InterruptedException {
+    outputWorker.clearQueue();
+  }
+
   /**
    * Runnable, launched by parent (CAN), that reads CAN packets into can frames by launching candump
    * and continuously parsing it's standard output into sensor frames that are put into queues
@@ -333,6 +341,16 @@ public final class CAN {
               .format("%s#%s", frame.identity, byteToHexString(frame.data));
       Process csProcess = Runtime.getRuntime().exec(argv);
       csProcess.waitFor();
+    }
+
+    public int getQueueSize() {
+      return frameOutputQueue.size();
+    }
+
+    public void clearQueue() throws InterruptedException {
+      queueLock.acquire();
+      frameOutputQueue.clear();
+      queueLock.release();
     }
 
     @Override
