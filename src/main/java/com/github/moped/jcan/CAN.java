@@ -164,7 +164,12 @@ public final class CAN {
 	  } else {
 		  sensorLine = sensorLine.split(" ")[1];
 		  sensorLine = sensorLine.trim();
-		  return Integer.parseInt(sensorLine);
+		  try {
+		    return Integer.parseInt(sensorLine);
+          } catch(NumberFormatException e) {
+		    System.out.println("Ignoring malformed data");
+		    return 0; // Ignore malformed data
+          }
 	  }
   }
 
